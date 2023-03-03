@@ -2,14 +2,9 @@
 require('nvim-treesitter.configs').setup {
 		-- Add languages to be installed here that you want installed for treesitter
 
-		ensure_installed = { "c", "go", "rust", "lua", "cpp", "python", "latex" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+		ensure_installed = { "c", "lua", "cpp", "python", "latex" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 
 		sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-
-		highlight = {
-				enable = true, -- false will disable the whole extension
-				disable = { 'org' }, -- list of language that will be disabled
-				additional_vim_regex_highlighting = true, },
 
 		indent = { enable = true, disable = { 'python' } },
 
@@ -62,15 +57,15 @@ require('nvim-treesitter.configs').setup {
 								['[]'] = '@class.outer',
 						},
 				},
-				swap = {
-						enable = true,
-						swap_next = {
-								['<leader>a'] = '@parameter.inner',
-						},
-						swap_previous = {
-								['<leader>A'] = '@parameter.inner',
-						},
-				},
+				-- swap = {
+				-- 		enable = true,
+				-- 		swap_next = {
+				-- 				['<leader>a'] = '@parameter.inner',
+				-- 		},
+				-- 		swap_previous = {
+				-- 				['<leader>A'] = '@parameter.inner',
+				-- 		},
+				-- },
 		},
 
 }
