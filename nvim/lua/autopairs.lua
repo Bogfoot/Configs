@@ -13,4 +13,7 @@ require("autoclose").setup({
 				["'"] = { escape = true, close = true, pair = "''" },
 				["`"] = { escape = true, close = false, pair = "``" },
 		},
+		options = {
+				disabled_filetypes = { "text", "markdown", "tex", "neorg", "norg" },
+		},
 })
