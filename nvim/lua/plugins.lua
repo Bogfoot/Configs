@@ -88,8 +88,11 @@ return require('lazy').setup({
 												config = {
 														workspaces = {
 																notes = "~/Notes/PHD",
-																work = "~/Work"
+																work = "~/Notes/Work",
+																default = "~/Notes"
+
 														},
+														default_workspace = "default",
 												},
 										},
 								},
