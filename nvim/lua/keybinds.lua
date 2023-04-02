@@ -31,7 +31,7 @@ nmap("<leader>fg", "<cmd>Telescope live_grep<cr>")
 nmap("<leader>fh", "<cmd>Telescope help_tags<cr>")
 -- NERDTree naredbe
 -- nmap("<C-t>", ":NERDTreeToggle <CR>")
-nmap("<C-t>", ":Oil <CR>")
+nmap("<C-t>", ":Neotree <CR>")
 --Dap
 nmap("<leader>dbp", ":lua require'dap'.toggle_breakpoint()<CR>")
 nmap("<leader>dc", ":lua require'dap'.continue()<CR>")
