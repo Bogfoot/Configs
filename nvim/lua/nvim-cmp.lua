@@ -126,16 +126,3 @@ cmp.setup.cmdline(':', {
 	})
 })
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = "~/.config/nvim/snippets" })
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspconfig = require('lspconfig')
-capabilities.textDocument.completion.completionItem.snippetSupport = true
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'pyright', 'cmake', 'pylsp', 'lua_ls' }
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
-		capabilities = capabilities,
-	}
-end
-require 'lspconfig'.pyright.setup { capabilities = capabilities }
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = "~/.config/nvim/snippets" })
