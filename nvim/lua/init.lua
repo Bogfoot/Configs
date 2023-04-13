@@ -27,5 +27,4 @@ require('nvim-tree')
 require('nvim-lualine')
 
 -- require('myplugins')
-require('nvim-dap')
 require('lsp')

@@ -19,14 +19,12 @@ return require('lazy').setup({
 			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
 		end
 	},
-	-- Same as vim-smartinput, makes autopairs for containers [{("'`...`'")}]
-	{ 'm4xshen/autoclose.nvim' },
 	{ 'p00f/clangd_extensions.nvim' }, --C/C++ linter
 	-- Pretty colours for hex colours, words of colours like "red", "green", "blue", ..., obviously dosn't work  for comments.
 	{ 'norcalli/nvim-colorizer.lua' },
-	{ 'nvim-lua/plenary.nvim' },  --Utility functions
+	{ 'nvim-lua/plenary.nvim' }, --Utility functions
 	{ 'nvim-telescope/telescope.nvim' },
-	{ 'hrsh7th/cmp-nvim-lsp' },   --Completion plugins
+	{ 'hrsh7th/cmp-nvim-lsp' }, --Completion plugins
 	{ 'hrsh7th/cmp-buffer' },
 	{ 'hrsh7th/cmp-path' },
 	{ 'hrsh7th/cmp-cmdline',
@@ -39,29 +37,27 @@ return require('lazy').setup({
 	{ 'neovim/nvim-lspconfig' },
 	-- Debugger
 	{ "mfussenegger/nvim-dap" }, --Basic debugger
+	{ "jay-babu/mason-nvim-dap.nvim" },
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap" }
+	},
+	-- Find variable definitions
+	{ 'theHamsta/nvim-dap-virtual-text' },
+	{ 'jbyuki/one-small-step-for-vimkind' },
 	{
 		{
 			"williamboman/mason.nvim",
 			build = ":MasonUpdate"
 		},
 		"williamboman/mason-lspconfig.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
 	},
 	{ --syntax highlightin
 		{
 			'nvim-treesitter/nvim-treesitter',
 			build = ':TSUpdate',
 		} },
-	-- Comments
-	{ 'numToStr/Comment.nvim' }, --Use ysw to surround a word, line, paragraph,... in a symbol (a-Z, 0-9, {[<()>]}, ...)},
-	-- Surround
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		config = function() require("nvim-surround").setup({}) end
-	},
 	{ 'nvim-lualine/lualine.nvim' },
-	{ 'lervag/vimtex' },            --vimtex for editing TEX files in VIM
 	{ 'pboettch/vim-cmake-syntax' }, --cmake syntax highlighting
 	{ 'ryanoasis/vim-devicons' },
 	--File tree
@@ -74,6 +70,14 @@ return require('lazy').setup({
 			"MunifTanjim/nui.nvim",
 		}
 	},
+	{ 'folke/neodev.nvim' }, -- LSP for neovim API
+	{
+		'rebelot/terminal.nvim',
+		config = function()
+			require("terminal").setup()
+		end
+	},
+	{ 'lervag/vimtex' }, --vimtex for editing TEX files in VIM
 	--Note taking
 	{
 		"nvim-neorg/neorg",
@@ -94,14 +98,17 @@ return require('lazy').setup({
 		},
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
-	{ 'rafi/awesome-vim-colorschemes' }, --Vim colorschemes
 	{ 'frazrepo/vim-rainbow' },         --Colours matching containers in .c, .cpp,... files
-	{ 'folke/neodev.nvim' },            -- LSP for neovim API
+	{ 'rafi/awesome-vim-colorschemes' }, --Vim colorschemes
+	-- Comments
+	{ 'numToStr/Comment.nvim' },        --Use ysw to surround a word, line, paragraph,... in a symbol (a-Z, 0-9, {[<()>]}, ...)},
+	-- Surround
 	{
-		'rebelot/terminal.nvim',
-		config = function()
-			require("terminal").setup()
-		end
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		config = function() require("nvim-surround").setup({}) end
 	},
+	-- Same as vim-smartinput, makes autopairs for containers [{("'`...`'")}]
+	{ 'm4xshen/autoclose.nvim' },
 
 })

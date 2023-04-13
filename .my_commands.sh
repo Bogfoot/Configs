@@ -1,17 +1,34 @@
 #!/bin/bash
+function pyupg()
+{
+	echo "Running pip freeze"
+	echo "Creating reqs.txt"
+	pip3 freeze > reqs.txt
+	ls reqs.txt
+	echo "Running upgrades"
+	pip3 install -r reqs.txt --upgrade
+	echo "Removing reqs.txt"
+	rm -v reqs.txt 
+} 
 function dsize ()
 {
-        du -sh $1 
+        dust $1 
 }
  function reqs() 
 {
         pip3 install -r $1
 }
 function ntdir(){
+	echo "Creating directory called $1"
 	mkdir ~/Notes/$1
 	mkdir ~/Notes/$1/zadaci_$1
+	mkdir ~/Notes/$1/sections
+	touch ~/Notes/$1/sections/$1_1.tex
+	echo "Copying *.tex files to ~/Notes/$1"
 	cp ~/Notes/*.tex ~/Notes/$1/
+	cp ~/Notes/*.sh ~/Notes/$1/
 	mv ~/Notes/$1/template.tex ~/Notes/$1/$1.tex
+	echo "Moving working directory to ~/Notes/$1"
 	cd ~/Notes/$1
 }
     
@@ -30,14 +47,6 @@ function cpdir ()
 {
         cp -R "$1" "$2"
 }
-# function LDir ()
-# {
-# for entry in "ls -R $1"/*
-# do
-#   echo "$entry"
-# done
-# }
-
 function check_connected()
 {
 		local connected_monitors=()
@@ -56,4 +65,8 @@ function mic_togg(){
 function pdf(){ 
 	pdflatex -synctex=1 -interaction=nonstopmode $1
 }
-function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+function booksearch(){
+	fd --regex --glob $@ /media/bogfoot/Chung2/PZF/
+}
+

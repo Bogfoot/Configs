@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 pcall(require, "luarocks.loader")
 local xrandr = require("xrandr")
 
@@ -7,6 +8,7 @@ local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_popup = require("awesome-wm-widgets.logout-popup-widget.logout-popup")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+---@diagnostic disable-next-line: unused-local
 local screenshot = require("awesomewm-screenshot.screenshot")
 local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 local spotify_shell = require("awesome-wm-widgets.spotify-shell.spotify-shell")
@@ -30,14 +32,17 @@ require("awful.hotkeys_popup.keys")
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
+-- local nice = require("nice")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-	naughty.notify({ preset = naughty.config.presets.critical,
+	naughty.notify({
+		preset = naughty.config.presets.critical,
 		title = "Oops, there were errors during startup!",
-		text = awesome.startup_errors })
+		text = awesome.startup_errors
+	})
 end
 
 -- Handle runtime errors after startup
@@ -48,9 +53,11 @@ do
 		if in_error then return end
 		in_error = true
 
-		naughty.notify({ preset = naughty.config.presets.critical,
+		naughty.notify({
+			preset = naughty.config.presets.critical,
 			title = "Oops, an error happened!",
-			text = tostring(err) })
+			text = tostring(err)
+		})
 		in_error = false
 	end)
 end
@@ -60,7 +67,7 @@ end
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/bogfoot/.config/awesome/theme.lua")
-
+-- nice()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -73,23 +80,23 @@ alt_key = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	awful.layout.suit.floating,
 	awful.layout.suit.tile,
+	awful.layout.suit.floating,
 }
 -- }}}
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
-	{ "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-	{ "manual", terminal .. " -e man awesome" },
+	{ "hotkeys",     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+	{ "manual",      terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart", awesome.restart },
-	{ "quit", function() awesome.quit() end },
+	{ "restart",     awesome.restart },
+	{ "quit",        function() awesome.quit() end },
 }
 
-local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
-local menu_terminal = { "open terminal", terminal }
+menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
+menu_terminal = { "open terminal", terminal }
 
 if has_fdo then
 	mymainmenu = freedesktop.menu.build({
@@ -236,29 +243,28 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Add widgets to the wibox
 	s.mywibox:setup {
 		layout = wibox.layout.align.horizontal,
-		{ -- Left widgets
+		{
+			-- Left widgets
 			layout = wibox.layout.fixed.horizontal,
 			mylauncher,
 			s.mytaglist,
 			wibox.widget.systray(),
 		},
-		-- wibox.container.constraint(s.mytasklist, "exact", 1, 1),
 		s.mytasklist, -- Middle widget
-		-- media_player_widget,
-		{ -- Right widgets
+		{
+			-- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			mykeyboardlayout,
-			-- awful.widget.watch('bash -c "free -h | awk \'/^Mem/ {print $3 / $2 }\'"', 30),
-			-- volumecfg,
-			-- net_speed_widget(),
 			cpu_widget({
 				width = 70,
 				step_width = 3,
 				step_spacing = 1,
 				color = '#FFFF0F'
 			}),
-			ram_widget({ widget_show_buf = true,
-				timeout = 10 }),
+			ram_widget({
+				widget_show_buf = true,
+				timeout = 10
+			}),
 			net_wired,
 			volume_widget {
 				widget_type = 'arc'
@@ -276,7 +282,6 @@ awful.screen.connect_for_each_screen(function(s)
 			mytextclock,
 			logout_menu_widget(),
 			s.mylayoutbox,
-
 		},
 	}
 end)
@@ -331,7 +336,8 @@ globalkeys = gears.table.join(
 		end,
 		{ description = "focus next by index", group = "client" }
 	),
-	awful.key({ modkey, }, "d", function() spotify_shell.launch() end, { description = "spotify shell", group = "music" }),
+	awful.key({ modkey, }, "d", function() spotify_shell.launch() end,
+		{ description = "spotify shell", group = "music" }),
 	awful.key({ alt_key, }, "Tab",
 		function()
 			awful.client.focus.byidx(-1)
@@ -364,11 +370,12 @@ globalkeys = gears.table.join(
 	-- Standard program
 	awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
 		{ description = "open a terminal", group = "launcher" }),
+
 	awful.key({ modkey }, "r", awesome.restart,
 		{ description = "reload awesome", group = "awesome" }),
+
 	awful.key({ modkey, "Shift" }, "q", awesome.quit,
 		{ description = "quit awesome", group = "awesome" }),
-
 	awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
 		{ description = "increase master width factor", group = "layout" }),
 	awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
@@ -401,7 +408,10 @@ globalkeys = gears.table.join(
 	-- Prompt
 
 	awful.key({ modkey }, "space",
-		function() awful.util.spawn("rofi -show combi -theme /home/bogfoot/.config/rofi/rofi-themes/'Official Themes'/Monokai.rasi") end
+		function()
+			awful.util.spawn(
+				"rofi -show combi -theme /home/bogfoot/.config/rofi/rofi-themes/'Official Themes'/Monokai.rasi")
+		end
 		,
 		{ description = "run rofi", group = "launcher" }),
 	-- awful.key({ modkey }, "space", function() awful.util.spawn("dmenu_run") end,
@@ -409,7 +419,6 @@ globalkeys = gears.table.join(
 
 	awful.key({ modkey }, "c", function() awful.util.spawn("alacritty -e musikcube") end,
 		{ description = "run musikcube", group = "Music" }),
-
 	awful.key({ modkey }, "b", function() awful.util.spawn("google-chrome") end,
 		{ description = "run Chrome", group = "Internet" }),
 
@@ -479,15 +488,14 @@ for i = 1, 9 do
 	globalkeys = gears.table.join(globalkeys,
 		-- View tag only.
 		awful.key({ "Shift" }, "Alt_L", function() mykeyboardlayout.next_layout(); end),
-
 		awful.key({}, "Print", scrot_full,
-			{ description = "Take a screenshot of entire screen", group = "screenshot" }),
+			{ description = "Take a screenshot of entire screen", group = "Screenshot" }),
 		awful.key({ modkey, "Shift" }, "s", scrot_selection,
-			{ description = "Take a screenshot of selection", group = "screenshot" }),
+			{ description = "Take a screenshot of selection", group = "Screenshot" }),
 		awful.key({ "Shift" }, "Print", scrot_window,
-			{ description = "Take a screenshot of focused window", group = "screenshot" }),
+			{ description = "Take a screenshot of focused window", group = "Screenshot" }),
 		awful.key({ "Ctrl" }, "Print", scrot_delay,
-			{ description = "Take a screenshot of delay", group = "screenshot" }),
+			{ description = "Take a screenshot of delay", group = "Screenshot" }),
 		awful.key({ modkey }, ',', function() xrandr.xrandr() end),
 
 		awful.key({ modkey }, "#" .. i + 9,
@@ -556,7 +564,8 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
 	-- All clients will match this rule.
-	{ rule = {},
+	{
+		rule = {},
 		properties = {
 			-- granica prozora
 			-- border_width = beautiful.border_width,
@@ -608,45 +617,45 @@ awful.rules.rules = {
 		properties = { tag = "" }
 	},
 	-- Floating clients.
-	{ rule_any = {
-		instance = {
-			"DTA", -- Firefox addon DownThemAll.
-			"copyq", -- Includes session name in class.
-			"pinentry",
+	{
+		rule_any = {
+			instance = {
+				"DTA", -- Firefox addon DownThemAll.
+				"copyq", -- Includes session name in class.
+				"pinentry",
+			},
+			class = {
+				"Arandr",
+				"Blueman-manager",
+				"Gpick",
+				"Kruler",
+				"MessageWin", -- kalarm.
+				"Sxiv",
+				"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+				"Wpa_gui",
+				"veromix",
+				"xtightvncviewer"
+			},
+			-- Note that the name property shown in xprop might be set slightly after creation of the client
+			-- and the name shown there might not match defined rules here.
+			name = {
+				"Event Tester", -- xev.
+			},
+			role = {
+				"AlarmWindow", -- Thunderbird's calendar.
+				"ConfigManager", -- Thunderbird's about:config.
+				"pop-up",    -- e.g. Google Chrome's (detached) Developer Tools.
+			}
 		},
-		class = {
-			"Arandr",
-			"Blueman-manager",
-			"Gpick",
-			"Kruler",
-			"MessageWin", -- kalarm.
-			"Sxiv",
-			"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-			"Wpa_gui",
-			"veromix",
-			"xtightvncviewer"
-		},
-
-		-- Note that the name property shown in xprop might be set slightly after creation of the client
-		-- and the name shown there might not match defined rules here.
-		name = {
-			"Event Tester", -- xev.
-		},
-		role = {
-			"AlarmWindow", -- Thunderbird's calendar.
-			"ConfigManager", -- Thunderbird's about:config.
-			"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
-		}
-	}, properties = { floating = true } },
-
-	-- Add titlebars to normal clients and dialogs
-	{ rule_any = { type = { "normal", "dialog" }
-	}, properties = { titlebars_enabled = false }
+		properties = { floating = true }
 	},
 
-	-- Set chrome to always map on the tag named "2" on screen 1.
-	-- { rule = { class = "Google-chrome" },
-	-- 	properties = { screen = 1, tag = "2" } },
+	-- Add titlebars to normal clients and dialogs
+	{
+		rule_any = { type = { "normal", "dialog" }
+		},
+		properties = { titlebars_enabled = true }
+	},
 }
 -- }}}
 
@@ -680,20 +689,24 @@ client.connect_signal("request::titlebars", function(c)
 	)
 
 	awful.titlebar(c):setup {
-		{ -- Left
+		{
+			-- Left
 			awful.titlebar.widget.iconwidget(c),
 			buttons = buttons,
 			layout  = wibox.layout.fixed.horizontal
 		},
-		{ -- Middle
-			{ -- Title
+		{
+			-- Middle
+			{
+				-- Title
 				align  = "center",
 				widget = awful.titlebar.widget.titlewidget(c)
 			},
 			buttons = buttons,
 			layout  = wibox.layout.flex.horizontal
 		},
-		{ -- Right
+		{
+			-- Right
 			awful.titlebar.widget.floatingbutton(c),
 			awful.titlebar.widget.maximizedbutton(c),
 			awful.titlebar.widget.stickybutton(c),
@@ -713,35 +726,23 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-
---Pozadinska slika
--- awful.spawn.with_shell("feh --randomize --bg-fill ~/Pictures/Wallpapers/*")
--- awful.spawn.with_shell("feh --bg-fill ~/Pictures/Wallpapers/SakuraSamurai.jpg")
---Kompozitor konfiguracija u ~/.config/picom/picom.conf
---Jezici za tipkovnicu
--- awful.spawn.with_shell("setxkbmap -layout \"hr,us\"")
--- awful.spawn.with_shell("xrandr --output HDMI-1 --same-as eDP-1")
--- awful.spawn.with_shell("picom")
--- awful.utils.spawn("check_connected")
-
 local autorun = true
-local autorunApps =
-{
+local autorunApps = {
 	"feh --randomize --bg-fill ~/Pictures/Wallpapers/*",
-	-- "feh --bg-fill ~/Pictures/Wallpapers/SakuraSamurai.jpg",
 	"xrandr --output HDMI-1 --same-as eDP-1",
 	"copyq",
 	"~/Downloads/mathpix",
 	"spotify",
 }
-awful.spawn("picom")
-
+awful.spawn.with_shell("picom")
 awful.spawn.with_shell("setxkbmap -layout \"hr,us\"")
+awful.spawn.with_shell("feh --bg-fill --randomize ~/Pictures/Wallpapers")
+
 function run_if_not_running(program, arguments)
 	awful.spawn.easy_async(
 		"pgrep " .. program,
 		function(stdout, stderr, reason, exit_code)
-			naughty.notify { text = stdout .. exit_code }
+			-- naughty.notify { text = stdout .. exit_code }
 			if exit_code ~= 0 then
 				awful.spawn(program .. " " .. arguments)
 			end

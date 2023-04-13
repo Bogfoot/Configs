@@ -1,6 +1,11 @@
 {
     "diagnostics.disable": [
-        "deprecated"
+        "deprecated",
+        "lowercase-global",
+        "unused-local"
     ],
-    "workspace.checkThirdParty": false
+    "workspace.checkThirdParty": false,
+    "diagnostics.globals": [
+        "cmap"
+    ]
 }
