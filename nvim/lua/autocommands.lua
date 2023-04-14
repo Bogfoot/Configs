@@ -16,6 +16,14 @@ hi def link MyTodo Todo
 autocmd BufNewFile,BufReadPre *.tex hi clear Conceal
 ]])
 
+autocmd("BufWritePre", {
+	callback = function()
+		vim.lsp.buf.format { async = true }
+	end,
+	group = general,
+	desc = "Autoformat on save.",
+})
+
 autocmd("BufReadPost", {
 	callback = function()
 		if fn.line "'\"" > 1 and fn.line "'\"" <= fn.line "$" then
@@ -51,13 +59,13 @@ autocmd("FileType", {
 	desc = "Set shiftwidth to 4 in these filetypes",
 })
 
-autocmd({ "BufWinLeave", "BufLeave", "InsertLeave", "InsertEnter", "FocusLost" }, {
-	callback = function()
-		vim.cmd "silent! w"
-	end,
-	group = general,
-	desc = "Auto Save when leaving/entering insert mode, buffer or window",
-})
+-- autocmd({ "BufWinLeave", "BufLeave", "InsertLeave", "InsertEnter", "FocusLost" }, {
+-- 	callback = function()
+-- 		vim.cmd "silent! w"
+-- 	end,
+-- 	group = general,
+-- 	desc = "Auto Save when leaving/entering insert mode, buffer or window",
+-- })
 
 autocmd("FileType", {
 	pattern = { "gitcommit", "markdown", "text", "log" },

@@ -1,4 +1,3 @@
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
 vim.cmd([[
 set mouse=a
 hi clear Conceal
