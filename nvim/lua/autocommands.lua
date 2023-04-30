@@ -15,6 +15,8 @@ augroup END
 hi def link MyTodo Todo
 autocmd BufNewFile,BufReadPre *.tex hi clear Conceal
 ]])
+autocmd("FileType",
+	{ pattern = { "*.norg" }, command = [[TSEnable highligh]] })
 
 autocmd("BufWritePre", {
 	callback = function()
