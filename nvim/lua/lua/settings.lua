@@ -25,3 +25,4 @@ set.clipboard = 'unnamedplus'
 set.completeopt = { "menuone", "noselect", "noinsert" }, -- mostly just for cmp_nvim_lsp
 		set.compatible == false
 set.encoding = "utf-8"
+set.foldmethod="manual"

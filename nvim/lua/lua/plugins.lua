@@ -86,7 +86,7 @@ return require('lazy').setup({
 			load = {
 				["core.defaults"] = {}, -- Loads default behaviour
 				["core.concealer"] = {}, -- Adds pretty icons to your documents
-				["core.dirman"] = {  -- Manages Neorg workspaces
+				["core.dirman"] = { -- Manages Neorg workspaces
 					config = {
 						workspaces = {
 							notes = "~/Notes/PHD",
@@ -110,6 +110,5 @@ return require('lazy').setup({
 	},
 	-- Same as vim-smartinput, makes autopairs for containers [{("'`...`'")}]
 	{ 'm4xshen/autoclose.nvim' },
-	{'jose-elias-alvarez/null-ls.nvim'},
 
 })
