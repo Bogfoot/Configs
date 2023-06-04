@@ -9,3 +9,5 @@ echo "sudo rm /etc/apt/sources.list.d/cuda* --- Remove CUDA sources. Obvious ada
 echo "xplr --- like ranger"
 echo "gcolor3 --- pick a colour"
 echo "ln -s Što/želiš/linkat di/ga/želiš/linkat --- Prvo ide postojeći file kojeg želiš linkati, drugo je file koji će biti link"
+echo "ls "*.zip" |tr "\n" "\0" | xargs -0 rm --- A quick way to remove unwanted files."
+echo "rsync -ra /from/where/you\'re/copying /to/where/you\'re/copying --- A good way to transfer files across locations. Works with 1 remote sender or reciever."
