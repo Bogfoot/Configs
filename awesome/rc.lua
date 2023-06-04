@@ -32,7 +32,6 @@ require("awful.hotkeys_popup.keys")
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
--- local nice = require("nice")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -67,7 +66,6 @@ end
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/bogfoot/.config/awesome/theme.lua")
--- nice()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -488,16 +486,17 @@ for i = 1, 9 do
 	globalkeys = gears.table.join(globalkeys,
 		-- View tag only.
 		awful.key({ "Shift" }, "Alt_L", function() mykeyboardlayout.next_layout(); end),
-		awful.key({}, "Print", scrot_full,
-			{ description = "Take a screenshot of entire screen", group = "Screenshot" }),
-		awful.key({ modkey, "Shift" }, "s", scrot_selection,
+		-- awful.key({}, "Print", scrot_full,
+		-- 	{ description = "Take a screenshot of entire screen", group = "Screenshot" }),
+		-- awful.key({ modkey, "Shift" }, "s", scrot_selection,
+		-- 	{ description = "Take a screenshot of selection", group = "Screenshot" }),
+		-- awful.key({ "Shift" }, "Print", scrot_window,
+		-- 	{ description = "Take a screenshot of focused window", group = "Screenshot" }),
+		-- awful.key({ "Ctrl" }, "Print", scrot_delay,
+		-- 	{ description = "Take a screenshot of delay", group = "Screenshot" }),
+		-- awful.key({ modkey }, ',', function() xrandr.xrandr() end),
+		awful.key({ modkey, "Shift" }, "s", function() awful.spawn('flameshot gui') end,
 			{ description = "Take a screenshot of selection", group = "Screenshot" }),
-		awful.key({ "Shift" }, "Print", scrot_window,
-			{ description = "Take a screenshot of focused window", group = "Screenshot" }),
-		awful.key({ "Ctrl" }, "Print", scrot_delay,
-			{ description = "Take a screenshot of delay", group = "Screenshot" }),
-		awful.key({ modkey }, ',', function() xrandr.xrandr() end),
-
 		awful.key({ modkey }, "#" .. i + 9,
 			function()
 				local screen = awful.screen.focused()
@@ -654,7 +653,7 @@ awful.rules.rules = {
 	{
 		rule_any = { type = { "normal", "dialog" }
 		},
-		properties = { titlebars_enabled = true }
+		properties = { titlebars_enabled = false }
 	},
 }
 -- }}}
@@ -699,7 +698,7 @@ client.connect_signal("request::titlebars", function(c)
 			-- Middle
 			{
 				-- Title
-				align  = "center",
+				align = "center",
 				widget = awful.titlebar.widget.titlewidget(c)
 			},
 			buttons = buttons,
@@ -761,3 +760,4 @@ gears.timer {
 	autostart = true,
 	callback = function() collectgarbage() end
 }
+--------------------
