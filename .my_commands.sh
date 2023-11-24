@@ -27,9 +27,12 @@ function ntdir(){
 	echo "Copying *.tex files to ~/Notes/$1"
 	cp ~/Notes/*.tex ~/Notes/$1/
 	cp ~/Notes/*.sh ~/Notes/$1/
+	cp ~/Notes/*.bib ~/Notes/$1/
+	cp ~/Notes/.gitignore ~/Notes/$1/
 	mv ~/Notes/$1/template.tex ~/Notes/$1/$1.tex
 	echo "Moving working directory to ~/Notes/$1"
 	cd ~/Notes/$1
+	git init
 }
     
 function loc()
@@ -67,6 +70,31 @@ function pdf(){
 }
 
 function booksearch(){
-	fd --regex --glob $@ /media/bogfoot/Chung2/PZF/
+	fdfind --regex --glob $@ ~/Desktop/Prezentacije\ za\ faks/
 }
 
+function openbook(){
+	xdg-open "$(booksearch $@)"
+}
+
+function spacemv(){
+find $@ -type f -name '*.pdf' -exec bash -c 'dir=$(dirname "$0"); file=$(basename "$0"); new_file=$(echo "$file" | sed "s/_\+/_/g"); mv "$0" "$dir/$new_file"' {} \;
+}
+
+#turns double space '  ' into underscore '_', and double underscore '__' into underscore '_'
+function spacerm(){
+find $@ -type f -name '*.pdf' -exec bash -c 'dir=$(dirname "$0"); file=$(basename "$0"); new_file="${file// /_}"; mv "$0" "$dir/$new_file"' {} \;
+}
+
+function move_specific_files() {
+    local source_dir="$1"
+    local destination_dir="$2"
+
+    rsync -av --dry-run --itemize-changes --include="*.pdf" --include="*.djvu" --include="*.epub" "$source_dir" "$destination_dir"
+}
+
+function note() {
+	echo "Date: $(date)" >> $HOME/Notes/PhDNotes/PHD/RandomNotes.norg
+	echo "$@" >> $HOME/Notes/PhDNotes/PHD/RandomNotes.norg
+	echo "" >> $HOME/Notes/PhDNotes/PHD/RandomNotes.norg
+}
