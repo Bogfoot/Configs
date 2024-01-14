@@ -6,7 +6,6 @@ filetype off
 filetype plugin indent on
 
 colorscheme alduin
-" colorscheme afterglow
 let g:alduin_Shout_Dragon_Aspect = 1
 let g:rainbow_active = 1
 
