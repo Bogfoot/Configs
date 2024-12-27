@@ -1,8 +1,4 @@
 -- [[ Basic Keymaps ]]
--- Telescope Keymaps
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Search by grep" })
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Find help tags" })
 
 -- NERDTree Keymap
 vim.keymap.set("n", "<C-t>", ":Neotree toggle<CR>", { desc = "Toggle file explorer (Neotree)" })
