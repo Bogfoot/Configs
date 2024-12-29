@@ -14,12 +14,14 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{ "ds1sqe/Calendar.nvim" },
 	{
 		"goolord/alpha-nvim",
 		config = function()
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
-			dashboard.section.header.val = {
+			local header = require("calendar").getCalendar()
+			local neovim = {
 				[[                                                                     ]],
 				[[       ████ ██████           █████      ██                     ]],
 				[[      ███████████             █████                             ]],
@@ -29,30 +31,25 @@ require("lazy").setup({
 				[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
 				[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
 			}
+			dashboard.section.header.val = header
 			dashboard.section.buttons.val = {
 				dashboard.button("e", "  New file", "<cmd>ene <BAR> startinsert <CR> <cmd>Neotree<CR>"),
 				dashboard.button("n", "󰎈  Open Neorg", "<cmd>Neorg index<CR> <cmd>Neotree<CR>"),
 				dashboard.button("N", "󰌚  Open PhDNotes", "<cmd>cd ~/Notes/PhDNotes<CR> <cmd>Neotree<CR>"),
-				dashboard.button("SPC s f", "󰈞  Search file, fuzzily"),
-				dashboard.button("SPC s g", "󰊄  Live grep"),
-				dashboard.button("SPC s h", "󰊄  Search Help Tags"),
-				dashboard.button("SPC c", "   Configuration", "<cmd>cd ~/.config/nvim/<CR> <cmd>e init.lua<CR>"),
+				-- dashboard.button("<leader>sf", "󰈞  Search files, fuzzily"),
+				-- dashboard.button("<leader>sg", "󰈞  Live grep"),
+				-- dashboard.button("<leader>sh", "󰈞  Search Help Tags"),
+				dashboard.button("<leader>c", "   Configuration", "<cmd>cd ~/.config/nvim/<CR> <cmd>e init.lua<CR>"),
 				dashboard.button("u", "  Update plugins", "<cmd>Lazy sync<CR>"),
 				dashboard.button("h", "󱀶  Open Help", "<cmd>tab h<CR>"),
 				dashboard.button("q", "󰅚  Quit NVIM", "<cmd>qa<CR>"),
 			}
-			local handle = io.popen("fortune")
-			local fortune = handle:read("*a")
-			handle:close()
+			-- dashboard.config.opts.shrink_margin.val = false
 			local function footer()
 				return "Beauty is but an illusion, truth is a lie, death is the future, we must all die."
 			end
 			dashboard.section.footer.val = footer()
-
 			dashboard.config.opts.noautocmd = true
-
-			vim.cmd([[autocmd User AlphaReady echo 'ready']])
-
 			alpha.setup(dashboard.config)
 		end,
 	},

@@ -7,6 +7,7 @@ vim.keymap.set("n", "<C-t>", ":Neotree toggle<CR>", { desc = "Toggle file explor
 vim.keymap.set("n", "<leader>-c", ":%s/\\s\\+$//<CR>", { desc = "Remove trailing whitespace" })
 vim.keymap.set("n", "<leader>go", ":source vimbook.vim<CR>", { desc = "Source vimbook session" })
 vim.keymap.set("n", "<leader>end", ":w<CR>:mksession! vimbook.vim<CR>:q<CR>", { desc = "Save and close with session" })
+vim.keymap.set("v", "<leader>r", ":<C-U>lua require'run_code_plugin'.execute()<CR>", { desc = "Testing something" })
 
 -- Buffer Navigation
 vim.keymap.set("n", "<leader>bn", ":bn<CR>", { desc = "Go to next buffer" })
