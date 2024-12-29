@@ -37,3 +37,5 @@ vim.keymap.set("n", "<M-p>", "<cmd>cprev<CR>", { desc = "Move to previous quick 
 vim.keymap.set("n", "<M-k>", "<cmd>cnext<CR>", { desc = "Move to next quick fix item" })
 
 -- Quality of life
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Source the current file" })
+vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Run the current line in lua" })
