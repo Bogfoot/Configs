@@ -13,6 +13,8 @@ let g:kite_supported_languages = ['*']
 let g:kite_tab_complete=1
 
 let g:tex_flavor = 'latex'
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 let g:vimtex_quickfix_open_on_warning = 0
 ]])

@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "##############################"
 echo "This is a review of some of the things you can do."
 echo "pavucontrol gives you control over audio --- man pavucontrol"
 echo "xrandr gives you control over video output --- man xrandr"
@@ -13,4 +14,4 @@ echo "ls "*.zip" |tr "\n" "\0" | xargs -0 rm --- A quick way to remove unwanted 
 echo "rsync -ra /from/where/you\'re/copying /to/where/you\'re/copying --- A good way to transfer files across locations. Works with 1 remote sender or reciever."
 echo "wifi-qr g --- Very nice and easy way to scan QR codes on laptops if the wifi password isn't available."
 echo "mv *.ttf /usr/local/share/fonts/... --- move the fonts to the font folder"
-echo ""
+echo "##############################"
